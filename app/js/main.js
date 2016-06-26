@@ -32,11 +32,16 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var CharactersCtrl = function CharactersCtrl($scope) {
+var CharactersCtrl = function CharactersCtrl($scope, CharactersService) {
 	$scope.lannisters = ['Jaime', 'Cersei', 'Tyrion'];
+
+	CharactersService.getCharacters().then(function (res) {
+		$scope.characters = res.data.results;
+		console.log($scope.characters);
+	});
 };
 
-CharactersCtrl.$inject = ['$scope'];
+CharactersCtrl.$inject = ['$scope', 'CharactersService'];
 
 exports['default'] = CharactersCtrl;
 module.exports = exports['default'];
@@ -66,6 +71,12 @@ var _controllersCharactersCtrl = require('./controllers/characters.ctrl');
 
 var _controllersCharactersCtrl2 = _interopRequireDefault(_controllersCharactersCtrl);
 
+//SERVICES
+
+var _servicesCharactersService = require('./services/characters.service');
+
+var _servicesCharactersService2 = _interopRequireDefault(_servicesCharactersService);
+
 //CONFIG
 
 var _config = require('./config');
@@ -80,9 +91,34 @@ _angular2['default'].module('app', ['ui.router']).constant('PARSE', {
 			'X-Parse-REST-API-Key': 'qYKCte8cRt7nzErizmUrPGk3mLh5XhjWautUIc2O'
 		}
 	}
-}).config(_config2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']);
+}).config(_config2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']).service('CharactersService', _servicesCharactersService2['default']);
 
-},{"./config":1,"./controllers/characters.ctrl":2,"angular":6,"angular-ui-router":4,"jquery":7,"underscore":8}],4:[function(require,module,exports){
+},{"./config":1,"./controllers/characters.ctrl":2,"./services/characters.service":4,"angular":7,"angular-ui-router":5,"jquery":8,"underscore":9}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var CharactersService = function CharactersService($http, PARSE) {
+
+	var url = PARSE.URL + 'classes/Characters';
+
+	this.getCharacters = function () {
+		return $http({
+			url: url,
+			headers: PARSE.CONFIG.headers,
+			method: 'GET',
+			cache: true
+		});
+	};
+};
+
+CharactersService.$inject = ['$http', 'PARSE'];
+
+exports['default'] = CharactersService;
+module.exports = exports['default'];
+
+},{}],5:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.3.1
@@ -4659,7 +4695,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -36133,11 +36169,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":5}],7:[function(require,module,exports){
+},{"./angular":6}],8:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
@@ -45953,7 +45989,7 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
