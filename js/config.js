@@ -9,6 +9,7 @@ let config = function($stateProvider, $urlRouterProvider) {
 		})
 		.state('root.home', {
 			url: '/',
+			controller: 'HomeCtrl',
 			templateUrl: 'templates/home.html'
 		})
 		.state('root.characters', {

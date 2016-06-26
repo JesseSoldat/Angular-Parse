@@ -113,7 +113,9 @@ gulp.task('lint', ['style:js', 'hint:js', 'hint:html']);
 
 gulp.task('watch', function() {
   watch('./sass/**/*.scss', function () {  
-    gulp.start('sass'); 
+    gulp.start('sass');
+   
+
   });
   watch(['./js/**/*.js', './package.json'], function () {
     gulp.start('browserify');

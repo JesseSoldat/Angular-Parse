@@ -5,12 +5,15 @@ import _ from 'underscore';
 
 
 //Controllers
+import HomeCtrl from './controllers/home.ctrl'
 import CharactersCtrl from './controllers/characters.ctrl';
 import AddCtrl from './controllers/add.ctrl';
 
 
 //SERVICES
+import HomeService from './services/home.service';
 import CharactersService from './services/characters.service';
+import AddService from './services/add.service';
 //CONFIG
 import config from './config';
 
@@ -26,7 +29,10 @@ angular
 		}
 	})
 	.config(config)
+	.controller('HomeCtrl', HomeCtrl)
 	.controller('CharactersCtrl', CharactersCtrl)
 	.controller('AddCtrl', AddCtrl)
+	.service('HomeService', HomeService)
 	.service('CharactersService', CharactersService)
+	.service('AddService', AddService)
 	;

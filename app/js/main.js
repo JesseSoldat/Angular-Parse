@@ -13,6 +13,7 @@ var config = function config($stateProvider, $urlRouterProvider) {
 		templateUrl: 'templates/layout.html'
 	}).state('root.home', {
 		url: '/',
+		controller: 'HomeCtrl',
 		templateUrl: 'templates/home.html'
 	}).state('root.characters', {
 		url: '/characters',
@@ -71,6 +72,25 @@ module.exports = exports['default'];
 },{}],4:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var HomeCtrl = function HomeCtrl($scope, HomeService) {
+
+	HomeService.getImages().then(function (res) {
+		$scope.images = res.data.results;
+		console.log($scope.images);
+	});
+};
+
+HomeCtrl.$inject = ['$scope', 'HomeService'];
+
+exports['default'] = HomeCtrl;
+module.exports = exports['default'];
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _angular = require('angular');
@@ -89,6 +109,10 @@ var _underscore2 = _interopRequireDefault(_underscore);
 
 //Controllers
 
+var _controllersHomeCtrl = require('./controllers/home.ctrl');
+
+var _controllersHomeCtrl2 = _interopRequireDefault(_controllersHomeCtrl);
+
 var _controllersCharactersCtrl = require('./controllers/characters.ctrl');
 
 var _controllersCharactersCtrl2 = _interopRequireDefault(_controllersCharactersCtrl);
@@ -99,9 +123,17 @@ var _controllersAddCtrl2 = _interopRequireDefault(_controllersAddCtrl);
 
 //SERVICES
 
+var _servicesHomeService = require('./services/home.service');
+
+var _servicesHomeService2 = _interopRequireDefault(_servicesHomeService);
+
 var _servicesCharactersService = require('./services/characters.service');
 
 var _servicesCharactersService2 = _interopRequireDefault(_servicesCharactersService);
+
+var _servicesAddService = require('./services/add.service');
+
+var _servicesAddService2 = _interopRequireDefault(_servicesAddService);
 
 //CONFIG
 
@@ -117,9 +149,21 @@ _angular2['default'].module('app', ['ui.router']).constant('PARSE', {
 			'X-Parse-REST-API-Key': 'qYKCte8cRt7nzErizmUrPGk3mLh5XhjWautUIc2O'
 		}
 	}
-}).config(_config2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']).controller('AddCtrl', _controllersAddCtrl2['default']).service('CharactersService', _servicesCharactersService2['default']);
+}).config(_config2['default']).controller('HomeCtrl', _controllersHomeCtrl2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']).controller('AddCtrl', _controllersAddCtrl2['default']).service('HomeService', _servicesHomeService2['default']).service('CharactersService', _servicesCharactersService2['default']).service('AddService', _servicesAddService2['default']);
 
-},{"./config":1,"./controllers/add.ctrl":2,"./controllers/characters.ctrl":3,"./services/characters.service":5,"angular":8,"angular-ui-router":6,"jquery":9,"underscore":10}],5:[function(require,module,exports){
+},{"./config":1,"./controllers/add.ctrl":2,"./controllers/characters.ctrl":3,"./controllers/home.ctrl":4,"./services/add.service":6,"./services/characters.service":7,"./services/home.service":8,"angular":11,"angular-ui-router":9,"jquery":12,"underscore":13}],6:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var AddService = function AddService() {};
+AddService.$inject = [];
+
+exports["default"] = AddService;
+module.exports = exports["default"];
+
+},{}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -144,7 +188,32 @@ CharactersService.$inject = ['$http', 'PARSE'];
 exports['default'] = CharactersService;
 module.exports = exports['default'];
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var HomeService = function HomeService($http, PARSE) {
+
+	var url = PARSE.URL + 'classes/images';
+
+	this.getImages = function () {
+		return $http({
+			url: url,
+			headers: PARSE.CONFIG.headers,
+			method: 'GET',
+			cache: true
+		});
+	};
+};
+
+HomeService.$inject = ['$http', 'PARSE'];
+
+exports['default'] = HomeService;
+module.exports = exports['default'];
+
+},{}],9:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.3.1
@@ -4721,7 +4790,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -36195,11 +36264,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],8:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":7}],9:[function(require,module,exports){
+},{"./angular":10}],12:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
@@ -46015,7 +46084,7 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -47565,7 +47634,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[4])
+},{}]},{},[5])
 
 
 //# sourceMappingURL=main.js.map
