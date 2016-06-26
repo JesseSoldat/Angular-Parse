@@ -1,12 +1,16 @@
-let AddCtrl = function ($scope) {
+let AddCtrl = function ($scope, AddService) {
 
 $scope.addCharacter = (obj) => {
-	console.log(obj);
+	AddService.addCharacter(obj).then( (res) => {
+		
+		alert('You Created ' + obj.firstName + " " + obj.lastName)
+		$scope.character = {};
+	})
 };
 
 
 };
 
-AddCtrl.$inject = ['$scope'];
+AddCtrl.$inject = ['$scope', 'AddService'];
 
 export default AddCtrl;

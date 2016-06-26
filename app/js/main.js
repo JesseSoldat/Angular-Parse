@@ -37,14 +37,18 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var AddCtrl = function AddCtrl($scope) {
+var AddCtrl = function AddCtrl($scope, AddService) {
 
 	$scope.addCharacter = function (obj) {
-		console.log(obj);
+		AddService.addCharacter(obj).then(function (res) {
+
+			alert('You Created ' + obj.firstName + " " + obj.lastName);
+			$scope.character = {};
+		});
 	};
 };
 
-AddCtrl.$inject = ['$scope'];
+AddCtrl.$inject = ['$scope', 'AddService'];
 
 exports['default'] = AddCtrl;
 module.exports = exports['default'];
@@ -152,16 +156,29 @@ _angular2['default'].module('app', ['ui.router']).constant('PARSE', {
 }).config(_config2['default']).controller('HomeCtrl', _controllersHomeCtrl2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']).controller('AddCtrl', _controllersAddCtrl2['default']).service('HomeService', _servicesHomeService2['default']).service('CharactersService', _servicesCharactersService2['default']).service('AddService', _servicesAddService2['default']);
 
 },{"./config":1,"./controllers/add.ctrl":2,"./controllers/characters.ctrl":3,"./controllers/home.ctrl":4,"./services/add.service":6,"./services/characters.service":7,"./services/home.service":8,"angular":11,"angular-ui-router":9,"jquery":12,"underscore":13}],6:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+	value: true
 });
-var AddService = function AddService() {};
-AddService.$inject = [];
+var AddService = function AddService($http, PARSE) {
 
-exports["default"] = AddService;
-module.exports = exports["default"];
+	var url = PARSE.URL + 'classes/Characters';
+
+	var Character = function Character(obj) {
+		this.firstName = obj.firstName;
+		this.lastName = obj.lastName;
+		this.url = obj.url;
+	};
+	this.addCharacter = function (obj) {
+		var ch = new Character(obj);
+		return $http.post(url, ch, PARSE.CONFIG);
+	};
+};
+AddService.$inject = ['$http', 'PARSE'];
+
+exports['default'] = AddService;
+module.exports = exports['default'];
 
 },{}],7:[function(require,module,exports){
 'use strict';
