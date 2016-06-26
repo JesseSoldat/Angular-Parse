@@ -6,6 +6,7 @@ import _ from 'underscore';
 
 //Controllers
 import CharactersCtrl from './controllers/characters.ctrl';
+import AddCtrl from './controllers/add.ctrl';
 
 
 //SERVICES
@@ -26,5 +27,6 @@ angular
 	})
 	.config(config)
 	.controller('CharactersCtrl', CharactersCtrl)
+	.controller('AddCtrl', AddCtrl)
 	.service('CharactersService', CharactersService)
 	;

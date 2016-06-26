@@ -15,6 +15,11 @@ let config = function($stateProvider, $urlRouterProvider) {
 			url: '/characters',
 			controller: 'CharactersCtrl',
 			templateUrl: 'templates/characters.html'
+		})
+		.state('root.add', {
+			url: '/add',
+			controller: 'AddCtrl',
+			templateUrl: 'templates/add.html'
 		});
 
 }

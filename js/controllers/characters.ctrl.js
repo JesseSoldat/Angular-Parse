@@ -3,7 +3,7 @@ let CharactersCtrl = function ($scope, CharactersService) {
 
 	CharactersService.getCharacters().then( (res) => {
 		$scope.characters = res.data.results;
-		console.log($scope.characters);
+		// console.log($scope.characters);
 
 	});
 
