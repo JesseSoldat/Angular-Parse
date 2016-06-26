@@ -14,6 +14,10 @@ var config = function config($stateProvider, $urlRouterProvider) {
 	}).state('root.home', {
 		url: '/',
 		templateUrl: 'templates/home.html'
+	}).state('root.characters', {
+		url: '/characters',
+		controller: 'CharactersCtrl',
+		templateUrl: 'templates/characters.html'
 	});
 };
 
@@ -23,6 +27,21 @@ exports['default'] = config;
 module.exports = exports['default'];
 
 },{}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var CharactersCtrl = function CharactersCtrl($scope) {
+	$scope.lannisters = ['Jaime', 'Cersei', 'Tyrion'];
+};
+
+CharactersCtrl.$inject = ['$scope'];
+
+exports['default'] = CharactersCtrl;
+module.exports = exports['default'];
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -41,6 +60,12 @@ var _underscore = require('underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
+//Controllers
+
+var _controllersCharactersCtrl = require('./controllers/characters.ctrl');
+
+var _controllersCharactersCtrl2 = _interopRequireDefault(_controllersCharactersCtrl);
+
 //CONFIG
 
 var _config = require('./config');
@@ -55,9 +80,9 @@ _angular2['default'].module('app', ['ui.router']).constant('PARSE', {
 			'X-Parse-REST-API-Key': 'qYKCte8cRt7nzErizmUrPGk3mLh5XhjWautUIc2O'
 		}
 	}
-}).config(_config2['default']);
+}).config(_config2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']);
 
-},{"./config":1,"angular":5,"angular-ui-router":3,"jquery":6,"underscore":7}],3:[function(require,module,exports){
+},{"./config":1,"./controllers/characters.ctrl":2,"angular":6,"angular-ui-router":4,"jquery":7,"underscore":8}],4:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.3.1
@@ -4634,7 +4659,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -36108,11 +36133,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":4}],6:[function(require,module,exports){
+},{"./angular":5}],7:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
@@ -45928,7 +45953,7 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -47478,7 +47503,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[2])
+},{}]},{},[3])
 
 
 //# sourceMappingURL=main.js.map

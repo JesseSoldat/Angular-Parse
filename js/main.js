@@ -1,9 +1,11 @@
 import angular from 'angular';
 import 'angular-ui-router';
-
-
 import $ from 'jquery';
 import _ from 'underscore';
+
+
+//Controllers
+import CharactersCtrl from './controllers/characters.ctrl';
 
 //CONFIG
 import config from './config';
@@ -20,4 +22,5 @@ angular
 		}
 	})
 	.config(config)
+	.controller('CharactersCtrl', CharactersCtrl)
 	;

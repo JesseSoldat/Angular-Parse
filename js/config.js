@@ -10,6 +10,11 @@ let config = function($stateProvider, $urlRouterProvider) {
 		.state('root.home', {
 			url: '/',
 			templateUrl: 'templates/home.html'
+		})
+		.state('root.characters', {
+			url: '/characters',
+			controller: 'CharactersCtrl',
+			templateUrl: 'templates/characters.html'
 		});
 
 }
