@@ -33,7 +33,7 @@ Object.defineProperty(exports, '__esModule', {
 	value: true
 });
 var CharactersCtrl = function CharactersCtrl($scope, CharactersService) {
-	$scope.lannisters = ['Jaime', 'Cersei', 'Tyrion'];
+	// $scope.lannisters = ['Jaime', 'Cersei', 'Tyrion'];
 
 	CharactersService.getCharacters().then(function (res) {
 		$scope.characters = res.data.results;

@@ -1,5 +1,11 @@
-<h1>Characters</h1>
+<h3 class="charactersTitle">Characters</h3>
 
-<ul ng-repeat='lannister in lannisters'>
+<!-- <ul ng-repeat='lannister in lannisters'>
 	<li>{{lannister}}</li>
-</ul>
+</ul> -->
+<div ng-repeat="character in characters">
+	<div class="characterWrapper">
+		<h5><a href="">{{character.firstName}} {{character.lastName}}</a></h5>
+		<img ng-src="{{character.url}}">
+	</div>
+</div>
