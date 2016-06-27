@@ -7,6 +7,7 @@ import _ from 'underscore';
 //Controllers
 import HomeCtrl from './controllers/home.ctrl'
 import CharactersCtrl from './controllers/characters.ctrl';
+import DetailsCtrl from './controllers/details.ctrl';
 import AddCtrl from './controllers/add.ctrl';
 import EditCtrl from './controllers/edit.ctrl';
 import DeleteCtrl from './controllers/delete.ctrl';
@@ -15,6 +16,7 @@ import DeleteCtrl from './controllers/delete.ctrl';
 //SERVICES
 import HomeService from './services/home.service';
 import CharactersService from './services/characters.service';
+import DetailsService from './services/details.service';
 import AddService from './services/add.service';
 import EditService from './services/edit.service';
 import DeleteService from './services/delete.service';
@@ -37,6 +39,7 @@ angular
 	.config(config)
 	.controller('HomeCtrl', HomeCtrl)
 	.controller('CharactersCtrl', CharactersCtrl)
+	.controller('DetailsCtrl', DetailsCtrl)
 	.controller('AddCtrl', AddCtrl)
 	.controller('EditCtrl', EditCtrl)
 	.controller('DeleteCtrl', DeleteCtrl)
@@ -44,6 +47,7 @@ angular
 
 	.service('HomeService', HomeService)
 	.service('CharactersService', CharactersService)
+	.service('DetailsService', DetailsService)
 	.service('AddService', AddService)
 	.service('EditService', EditService)
 	.service('DeleteService', DeleteService)

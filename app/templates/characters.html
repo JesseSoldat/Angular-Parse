@@ -5,7 +5,7 @@
 </ul> -->
 <div ng-repeat="character in characters">
 	<div class="characterWrapper">
-		<h5><a href="">{{character.firstName}} {{character.lastName}}</a></h5>
+		<h5><a href="#/details/{{character.objectId}}">{{character.firstName}} {{character.lastName}}</a></h5>
 		<img ng-src="{{character.url}}">
 
 		<a href="#/edit/{{character.objectId}}">
