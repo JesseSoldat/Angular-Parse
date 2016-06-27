@@ -7,11 +7,14 @@
 	<div class="characterWrapper">
 		<h5><a href="">{{character.firstName}} {{character.lastName}}</a></h5>
 		<img ng-src="{{character.url}}">
+
 		<a href="#/edit/{{character.objectId}}">
-
-		<button class="charBtn" id="editBtn" btn btn-default>Edit</button>
-		<button class="charBtn" id="delBtn" btn btn-default>Delete</button>
-
+			<button class="charBtn" id="editBtn" btn btn-default>Edit</button>
 		</a>
+
+		<a href="#/delete/{{character.objectId}}">
+			<button class="charBtn" id="delBtn" btn btn-default>Delete</button>	
+		</a>
+		
 	</div>
 </div>

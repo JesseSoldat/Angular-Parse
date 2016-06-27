@@ -27,6 +27,11 @@ var config = function config($stateProvider, $urlRouterProvider) {
 		url: '/edit/:characterId',
 		controller: 'EditCtrl',
 		templateUrl: 'templates/edit.html'
+	}).state('root.delete', {
+		url: '/delete/:characterId',
+		controller: 'DeleteCtrl',
+		templateUrl: 'templates/delete.html'
+
 	});
 };
 
@@ -85,6 +90,28 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
+var DeleteCtrl = function DeleteCtrl($scope, DeleteService, $stateParams, $state) {
+
+	var id = $stateParams;
+	DeleteService.deleteCharacter(id).then(function (res) {
+
+		setTimeout(function () {
+			$state.go('root.characters');
+		}, 2);
+	});
+};
+
+DeleteCtrl.$inject = ['$scope', 'DeleteService', '$stateParams', '$state'];
+
+exports['default'] = DeleteCtrl;
+module.exports = exports['default'];
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
 var EditCtrl = function EditCtrl($scope, EditService, $stateParams, $state) {
 
 	var id = $stateParams.characterId;
@@ -105,7 +132,7 @@ EditCtrl.$inject = ['$scope', 'EditService', '$stateParams', '$state'];
 exports['default'] = EditCtrl;
 module.exports = exports['default'];
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -124,7 +151,7 @@ HomeCtrl.$inject = ['$scope', 'HomeService'];
 exports['default'] = HomeCtrl;
 module.exports = exports['default'];
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -161,6 +188,10 @@ var _controllersEditCtrl = require('./controllers/edit.ctrl');
 
 var _controllersEditCtrl2 = _interopRequireDefault(_controllersEditCtrl);
 
+var _controllersDeleteCtrl = require('./controllers/delete.ctrl');
+
+var _controllersDeleteCtrl2 = _interopRequireDefault(_controllersDeleteCtrl);
+
 //SERVICES
 
 var _servicesHomeService = require('./services/home.service');
@@ -179,6 +210,10 @@ var _servicesEditService = require('./services/edit.service');
 
 var _servicesEditService2 = _interopRequireDefault(_servicesEditService);
 
+var _servicesDeleteService = require('./services/delete.service');
+
+var _servicesDeleteService2 = _interopRequireDefault(_servicesDeleteService);
+
 //CONFIG
 
 var _config = require('./config');
@@ -193,9 +228,9 @@ _angular2['default'].module('app', ['ui.router']).constant('PARSE', {
 			'X-Parse-REST-API-Key': 'qYKCte8cRt7nzErizmUrPGk3mLh5XhjWautUIc2O'
 		}
 	}
-}).config(_config2['default']).controller('HomeCtrl', _controllersHomeCtrl2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']).controller('AddCtrl', _controllersAddCtrl2['default']).controller('EditCtrl', _controllersEditCtrl2['default']).service('HomeService', _servicesHomeService2['default']).service('CharactersService', _servicesCharactersService2['default']).service('AddService', _servicesAddService2['default']).service('EditService', _servicesEditService2['default']);
+}).config(_config2['default']).controller('HomeCtrl', _controllersHomeCtrl2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']).controller('AddCtrl', _controllersAddCtrl2['default']).controller('EditCtrl', _controllersEditCtrl2['default']).controller('DeleteCtrl', _controllersDeleteCtrl2['default']).service('HomeService', _servicesHomeService2['default']).service('CharactersService', _servicesCharactersService2['default']).service('AddService', _servicesAddService2['default']).service('EditService', _servicesEditService2['default']).service('DeleteService', _servicesDeleteService2['default']);
 
-},{"./config":1,"./controllers/add.ctrl":2,"./controllers/characters.ctrl":3,"./controllers/edit.ctrl":4,"./controllers/home.ctrl":5,"./services/add.service":7,"./services/characters.service":8,"./services/edit.service":9,"./services/home.service":10,"angular":13,"angular-ui-router":11,"jquery":14,"underscore":15}],7:[function(require,module,exports){
+},{"./config":1,"./controllers/add.ctrl":2,"./controllers/characters.ctrl":3,"./controllers/delete.ctrl":4,"./controllers/edit.ctrl":5,"./controllers/home.ctrl":6,"./services/add.service":8,"./services/characters.service":9,"./services/delete.service":10,"./services/edit.service":11,"./services/home.service":12,"angular":15,"angular-ui-router":13,"jquery":16,"underscore":17}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -220,7 +255,7 @@ AddService.$inject = ['$http', 'PARSE'];
 exports['default'] = AddService;
 module.exports = exports['default'];
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -245,7 +280,29 @@ CharactersService.$inject = ['$http', 'PARSE'];
 exports['default'] = CharactersService;
 module.exports = exports['default'];
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var DeleteService = function DeleteService($http, PARSE) {
+
+	var url = PARSE.URL + 'classes/Characters';
+
+	this.deleteCharacter = function (obj) {
+		var id = obj.characterId;
+		console.log(id);
+		return $http['delete'](url + '/' + id, PARSE.CONFIG);
+	};
+};
+
+DeleteService.$inject = ['$http', 'PARSE'];
+
+exports['default'] = DeleteService;
+module.exports = exports['default'];
+
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -265,7 +322,7 @@ EditService.$inject = ['$http', 'PARSE'];
 exports['default'] = EditService;
 module.exports = exports['default'];
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -290,7 +347,7 @@ HomeService.$inject = ['$http', 'PARSE'];
 exports['default'] = HomeService;
 module.exports = exports['default'];
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.3.1
@@ -4867,7 +4924,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -36341,11 +36398,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":12}],14:[function(require,module,exports){
+},{"./angular":14}],16:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
@@ -46161,7 +46218,7 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -47711,7 +47768,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[6])
+},{}]},{},[7])
 
 
 //# sourceMappingURL=main.js.map

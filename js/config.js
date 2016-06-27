@@ -27,6 +27,12 @@ let config = function($stateProvider, $urlRouterProvider) {
 			controller: 'EditCtrl',
 			templateUrl: 'templates/edit.html'
 		})
+		.state('root.delete', {
+			url: '/delete/:characterId',
+			controller: 'DeleteCtrl',
+			templateUrl: 'templates/delete.html'
+
+		})
 		;
 
 }
