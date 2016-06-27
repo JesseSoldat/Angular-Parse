@@ -41,18 +41,20 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var AddCtrl = function AddCtrl($scope, AddService) {
+var AddCtrl = function AddCtrl($scope, AddService, $state) {
 
 	$scope.addCharacter = function (obj) {
 		AddService.addCharacter(obj).then(function (res) {
-
-			alert('You Created ' + obj.firstName + " " + obj.lastName);
 			$scope.character = {};
+
+			console.log('You Created ' + obj.firstName + " " + obj.lastName);
+
+			$state.go('root.characters');
 		});
 	};
 };
 
-AddCtrl.$inject = ['$scope', 'AddService'];
+AddCtrl.$inject = ['$scope', 'AddService', '$state'];
 
 exports['default'] = AddCtrl;
 module.exports = exports['default'];
@@ -67,8 +69,8 @@ var CharactersCtrl = function CharactersCtrl($scope, CharactersService) {
 	// $scope.lannisters = ['Jaime', 'Cersei', 'Tyrion'];
 
 	CharactersService.getCharacters().then(function (res) {
+
 		$scope.characters = res.data.results;
-		// console.log($scope.characters);
 	});
 };
 
@@ -83,20 +85,22 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
-var EditCtrl = function EditCtrl($scope, EditService, $stateParams) {
+var EditCtrl = function EditCtrl($scope, EditService, $stateParams, $state) {
 
 	var id = $stateParams.characterId;
 
 	$scope.editCharacter = function (obj) {
-		// console.log(obj);
-		// console.log(id);
 		EditService.editCharacter(obj, id).then(function (res) {
-			alert('You have updated ' + obj.firstName + ' ' + obj.lastName);
+			$scope.character = {};
+
+			console.log('You have updated ' + obj.firstName + ' ' + obj.lastName);
+
+			$state.go('root.characters');
 		});
 	};
 };
 
-EditCtrl.$inject = ['$scope', 'EditService', '$stateParams'];
+EditCtrl.$inject = ['$scope', 'EditService', '$stateParams', '$state'];
 
 exports['default'] = EditCtrl;
 module.exports = exports['default'];
@@ -230,12 +234,12 @@ var CharactersService = function CharactersService($http, PARSE) {
 		return $http({
 			url: url,
 			headers: PARSE.CONFIG.headers,
-			method: 'GET',
-			cache: true
+			method: 'GET'
 		});
 	};
 };
 
+// cache: true
 CharactersService.$inject = ['$http', 'PARSE'];
 
 exports['default'] = CharactersService;
