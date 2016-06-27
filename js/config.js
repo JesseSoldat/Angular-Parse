@@ -21,7 +21,13 @@ let config = function($stateProvider, $urlRouterProvider) {
 			url: '/add',
 			controller: 'AddCtrl',
 			templateUrl: 'templates/add.html'
-		});
+		})
+		.state('root.edit', {
+			url: '/edit/:characterId',
+			controller: 'EditCtrl',
+			templateUrl: 'templates/edit.html'
+		})
+		;
 
 }
 

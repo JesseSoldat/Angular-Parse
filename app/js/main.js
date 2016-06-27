@@ -23,6 +23,10 @@ var config = function config($stateProvider, $urlRouterProvider) {
 		url: '/add',
 		controller: 'AddCtrl',
 		templateUrl: 'templates/add.html'
+	}).state('root.edit', {
+		url: '/edit/:characterId',
+		controller: 'EditCtrl',
+		templateUrl: 'templates/edit.html'
 	});
 };
 
@@ -79,6 +83,30 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
+var EditCtrl = function EditCtrl($scope, EditService, $stateParams) {
+
+	var id = $stateParams.characterId;
+
+	$scope.editCharacter = function (obj) {
+		// console.log(obj);
+		// console.log(id);
+		EditService.editCharacter(obj, id).then(function (res) {
+			alert('You have updated ' + obj.firstName + ' ' + obj.lastName);
+		});
+	};
+};
+
+EditCtrl.$inject = ['$scope', 'EditService', '$stateParams'];
+
+exports['default'] = EditCtrl;
+module.exports = exports['default'];
+
+},{}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
 var HomeCtrl = function HomeCtrl($scope, HomeService) {
 
 	HomeService.getImages().then(function (res) {
@@ -92,7 +120,7 @@ HomeCtrl.$inject = ['$scope', 'HomeService'];
 exports['default'] = HomeCtrl;
 module.exports = exports['default'];
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -125,6 +153,10 @@ var _controllersAddCtrl = require('./controllers/add.ctrl');
 
 var _controllersAddCtrl2 = _interopRequireDefault(_controllersAddCtrl);
 
+var _controllersEditCtrl = require('./controllers/edit.ctrl');
+
+var _controllersEditCtrl2 = _interopRequireDefault(_controllersEditCtrl);
+
 //SERVICES
 
 var _servicesHomeService = require('./services/home.service');
@@ -138,6 +170,10 @@ var _servicesCharactersService2 = _interopRequireDefault(_servicesCharactersServ
 var _servicesAddService = require('./services/add.service');
 
 var _servicesAddService2 = _interopRequireDefault(_servicesAddService);
+
+var _servicesEditService = require('./services/edit.service');
+
+var _servicesEditService2 = _interopRequireDefault(_servicesEditService);
 
 //CONFIG
 
@@ -153,9 +189,9 @@ _angular2['default'].module('app', ['ui.router']).constant('PARSE', {
 			'X-Parse-REST-API-Key': 'qYKCte8cRt7nzErizmUrPGk3mLh5XhjWautUIc2O'
 		}
 	}
-}).config(_config2['default']).controller('HomeCtrl', _controllersHomeCtrl2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']).controller('AddCtrl', _controllersAddCtrl2['default']).service('HomeService', _servicesHomeService2['default']).service('CharactersService', _servicesCharactersService2['default']).service('AddService', _servicesAddService2['default']);
+}).config(_config2['default']).controller('HomeCtrl', _controllersHomeCtrl2['default']).controller('CharactersCtrl', _controllersCharactersCtrl2['default']).controller('AddCtrl', _controllersAddCtrl2['default']).controller('EditCtrl', _controllersEditCtrl2['default']).service('HomeService', _servicesHomeService2['default']).service('CharactersService', _servicesCharactersService2['default']).service('AddService', _servicesAddService2['default']).service('EditService', _servicesEditService2['default']);
 
-},{"./config":1,"./controllers/add.ctrl":2,"./controllers/characters.ctrl":3,"./controllers/home.ctrl":4,"./services/add.service":6,"./services/characters.service":7,"./services/home.service":8,"angular":11,"angular-ui-router":9,"jquery":12,"underscore":13}],6:[function(require,module,exports){
+},{"./config":1,"./controllers/add.ctrl":2,"./controllers/characters.ctrl":3,"./controllers/edit.ctrl":4,"./controllers/home.ctrl":5,"./services/add.service":7,"./services/characters.service":8,"./services/edit.service":9,"./services/home.service":10,"angular":13,"angular-ui-router":11,"jquery":14,"underscore":15}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -180,7 +216,7 @@ AddService.$inject = ['$http', 'PARSE'];
 exports['default'] = AddService;
 module.exports = exports['default'];
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -205,7 +241,27 @@ CharactersService.$inject = ['$http', 'PARSE'];
 exports['default'] = CharactersService;
 module.exports = exports['default'];
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+var EditService = function EditService($http, PARSE) {
+
+	var url = PARSE.URL + 'classes/Characters';
+
+	this.editCharacter = function (obj, id) {
+		return $http.put(url + '/' + id, obj, PARSE.CONFIG);
+	};
+};
+
+EditService.$inject = ['$http', 'PARSE'];
+
+exports['default'] = EditService;
+module.exports = exports['default'];
+
+},{}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -230,7 +286,7 @@ HomeService.$inject = ['$http', 'PARSE'];
 exports['default'] = HomeService;
 module.exports = exports['default'];
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.3.1
@@ -4807,7 +4863,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /**
  * @license AngularJS v1.5.7
  * (c) 2010-2016 Google, Inc. http://angularjs.org
@@ -36281,11 +36337,11 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":10}],12:[function(require,module,exports){
+},{"./angular":12}],14:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.4
  * http://jquery.com/
@@ -46101,7 +46157,7 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -47651,7 +47707,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[5])
+},{}]},{},[6])
 
 
 //# sourceMappingURL=main.js.map

@@ -16,6 +16,7 @@ body {
 	margin: 0 2% 3% 2%;
 	box-shadow: 5px 5px 5px black;
 	border-radius: 5px;
+	position: relative;
 
 }
 .characterWrapper > h5 {
@@ -26,4 +27,11 @@ body {
 	display: block;
 	max-height: 250px;
 	max-width: 280px;
+}
+.editBtn {
+	position: absolute;
+	bottom: -10px;
+	left: 15px;
+	padding: 5px 10px;
+	border-radius: 5px;
 }
